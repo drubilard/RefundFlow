@@ -33,9 +33,28 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	@FindBy(css = "#navbar-collapse-2 > ul > li.dropdown.open > ul > li > div > div > ul:nth-child(2) > li > a")
 	private WebElement reembolsarButtonLocator;
 	
+	@FindBy(partialLinkText = "Nuevo")
+	private WebElement nuevoRefundButtonLocator;
+	
+	@FindBy(css = "td.dataTables_empty")
+	private WebElement emptypagosLocator;
+	
+	@FindBy(css = "#tablaPagos > tbody > tr:first-child")
+	private WebElement pagoLocator;
+
+	@FindBy(id = "continuar")
+	private WebElement continuarPagoLocator;
+	
+	@FindBy(id = "finalizar")
+	private WebElement finalizarPagoLocator;
+	
+	@FindBy(id = "reembolso")
+	private WebElement reembolsoPagoLocator;
+	
+		
 	@FindBy(partialLinkText = "Cerrar sesión")
 	private WebElement logoutLocator;
-	
+		
 		
 	public RefundFlowPage(Browser browser) throws Exception {
 		automator = new WebAutomator(browser);
@@ -57,7 +76,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 
 	}
 
-	public void generarReembolso() {
+	public void mantenedorReembolso() {
 		automator.waitUntilPresent(logoutLocator, 10);
 		automator.click(cobrarButtonLocator, 10);
 		automator.click(reembolsarButtonLocator, 10);
@@ -65,19 +84,23 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 
 	}
 
-	public void selectMenuAnulaciones() {
+	public void crearReembolso() throws InterruptedException {
+		automator.waitUntilPresent(nuevoRefundButtonLocator, 10);
+		automator.click(nuevoRefundButtonLocator, 10);
+		if(automator.isDisplayed(emptypagosLocator)) {
+			System.out.println("NO HAY PAGOS PARA REEMBOLSAR");
+		}else {
+			automator.click(pagoLocator, 10);
+			automator.click(continuarPagoLocator, 10);
+			Thread.sleep(1000);
+			//automator.waitUntilPresent(reembolsoPagoLocator, 10);
+			automator.click(continuarPagoLocator, 10);
+			automator.click(finalizarPagoLocator, 10);
+			
+		}
 
 	}
 
-	public void solicitarAnulacion() {
-
-		
-	}
-	public void generarAnulacion() {
-
-
-		
-	}
 	
 	@Override
 	protected void load() {

@@ -63,8 +63,13 @@ public class WebAutomator {
 	public void type(WebElement element, String text) {
 		element.sendKeys(text);
 	}
-	public boolean isDispleyed(WebElement element) {
-		return element.isDisplayed();
+	public boolean isDisplayed(WebElement element) {
+		try {
+			return element.isDisplayed();
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void type(By locator, String text) {

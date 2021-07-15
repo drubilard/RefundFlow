@@ -16,8 +16,9 @@ class RefundFlowTest extends BaseTest{
 	}
 	@Test
 	@Order(2)
-	void Refund() {
-		page.generarReembolso();
+	void Refund() throws InterruptedException {
+		page.mantenedorReembolso();
+		page.crearReembolso();
 		//assertTrue(page.menuInicioDisplayed());
 	}
 }

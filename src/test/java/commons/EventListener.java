@@ -185,7 +185,7 @@ public class EventListener extends AbstractWebDriverEventListener{
 	String msg = String.format("Method Name:: %s throwable:: %s driver ::%s", "onException", throwable, driver);
 	Configuration.LOGGER.error(msg);
 	try {
-	SeleniumUtils.takeScreenShot(driver);
+	//SeleniumUtils.takeScreenShot(driver);
 	} catch (Exception e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
