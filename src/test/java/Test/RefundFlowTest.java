@@ -13,18 +13,12 @@ class RefundFlowTest extends BaseTest{
 	@Order(1)
 	void login() {
 		page.login();
-		page.selectOrganizacion();
-		//assertTrue(page.menuInicioDisplayed());
 	}
 	@Test
 	@Order(2)
-	void Anulaciones() {
-		page.selectMenuAnulaciones();
-		page.solicitarAnulacion();
-		page.generarAnulacion();
+	void Refund() {
+		page.generarReembolso();
 		//assertTrue(page.menuInicioDisplayed());
 	}
-	
-
 }
 

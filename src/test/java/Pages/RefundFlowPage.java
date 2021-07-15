@@ -14,10 +14,29 @@ import commons.WebAutomator;
 
 public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	private WebAutomator automator;
-	@FindBy(id = "UsuarioRut")
-	private WebElement usuarioLocator;
 	
+	@FindBy(css = "li[class='visible-lg']+li :first-child")
+	private WebElement ingresarButtonLocator;
 	
+	@FindBy(id = "email")
+	private WebElement emailLocator;
+	
+	@FindBy(id = "psw")
+	private WebElement passwordLocator;
+	
+	@FindBy(id = "btnSubmit")
+	private WebElement submitLoginLocator;
+	
+	@FindBy(css = "#navbar-collapse-2 > ul > li:nth-child(3) > a")
+	private WebElement cobrarButtonLocator;
+	
+	@FindBy(css = "#navbar-collapse-2 > ul > li.dropdown.open > ul > li > div > div > ul:nth-child(2) > li > a")
+	private WebElement reembolsarButtonLocator;
+	
+	@FindBy(partialLinkText = "Cerrar sesión")
+	private WebElement logoutLocator;
+	
+		
 	public RefundFlowPage(Browser browser) throws Exception {
 		automator = new WebAutomator(browser);
 		PageFactory.initElements(automator.getDriver(), this);
@@ -29,11 +48,19 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	}
 
 	public void login() {
-
+		automator.click(ingresarButtonLocator, 10);
+		automator.waitUntilPresent(emailLocator, 10);
+		automator.type(emailLocator, Configuration.USER);
+		automator.type(passwordLocator, Configuration.PASSWORD);
+		automator.click(submitLoginLocator, 10);
+		
 
 	}
 
-	public void selectOrganizacion() {
+	public void generarReembolso() {
+		automator.waitUntilPresent(logoutLocator, 10);
+		automator.click(cobrarButtonLocator, 10);
+		automator.click(reembolsarButtonLocator, 10);
 
 
 	}
