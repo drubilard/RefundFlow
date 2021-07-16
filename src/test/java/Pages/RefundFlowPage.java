@@ -128,8 +128,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 				automator.click(finalizarPagoLocator, 10);
 			} else {
 				System.out.println("Pagos ya reembolsados");
-				crearPago();
-				
+				idpago = crearPago();
 
 			}
 
@@ -140,28 +139,29 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	public String crearPago() {
 		String descripcionPago = "pago automatizado - test";
 		idpago = null;
+		String pagadorEmail = Configuration.USER;
 		System.out.println("Generando pago para test");
 		automator.click(cerrarButtonModalLocator);
 		automator.click(cobrarButtonLocator);
 		automator.click(cobrarLocator, 10);
 		automator.waitUntilPresent(submitPagoLocator, 10);
-		automator.type(emailPagoLocator, Configuration.USER);
+		automator.type(emailPagoLocator, pagadorEmail);
 		automator.type(descripcionPagoLocator, descripcionPago);
 		automator.type(montoPagoLocator, "1000");
 		automator.click(submitPagoLocator);
 		automator.waitUntilClickable(confirmaPagoLocator, 10);
 		if ((descripcionPago.equalsIgnoreCase(automator.getText(conceptoPagoLocator)))
-				&& (Configuration.USER.equalsIgnoreCase(automator.getText(pagadorLocator)))) {
+				&& (pagadorEmail.equalsIgnoreCase(automator.getText(pagadorLocator)))) {
 			automator.click(confirmaPagoLocator);
-			if (automator.isDisplayed(idPagoLocator)) {
+			if (automator.isDisplayed(confirmacionPagoLocator)) {
 				System.out.println("Pago generado con éxito");
 				idpago = automator.getText(idPagoLocator);
 				return idpago;
 			} else {
-				System.out.println("Problemas en generar el pago");
+				System.out.println("Problemas en generar el pago 1");
 				return idpago;
 			}
-
+			
 		} else {
 			System.out.println("Datos a confirmar del pago no coinciden");
 			return idpago;
