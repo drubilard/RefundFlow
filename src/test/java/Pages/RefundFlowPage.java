@@ -2,6 +2,9 @@ package Pages;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -39,8 +42,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	@FindBy(css = "td.dataTables_empty")
 	private WebElement emptypagosLocator;
 
-	@FindBy(css = "#tablaPagos > tbody > tr:first-child")
-	private WebElement pagoLocator;
+	private List<WebElement> pagosLocator;
 
 	@FindBy(id = "continuar")
 	private WebElement continuarPagoLocator;
@@ -120,10 +122,8 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 		if (automator.isDisplayed(emptypagosLocator)) {
 			System.out.println("No hay pagos para reembolsar");
 		} else {
-			automator.click(pagoLocator, 10);
-			automator.click(continuarPagoLocator, 10);
-			Thread.sleep(1000);
-			if (automator.isDisplayed(reembolsoPagoLocator)) {
+			if (buscarReembolso()) {
+				System.out.println("llegue 2");
 				automator.click(continuarPagoLocator, 10);
 				automator.click(finalizarPagoLocator, 10);
 			} else {
@@ -136,9 +136,28 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 
 	}
 
+	public boolean buscarReembolso() throws InterruptedException {
+		pagosLocator = automator.findElements(By.cssSelector("#tablaPagos > tbody > tr"));
+		for (WebElement pagoLocator : pagosLocator) {
+			try {
+				automator.click(pagoLocator, 10);
+			} catch (Exception e) {
+				return false;
+			}
+			automator.click(continuarPagoLocator, 10);
+			Thread.sleep(1000);
+			if (automator.isDisplayed(reembolsoPagoLocator)) {
+				return true;
+			} else {
+				automator.click(cerrarButtonModalLocator);
+			}
+		}
+		return false;
+
+	}
+
 	public String crearPago() {
 		String descripcionPago = "pago automatizado - test";
-		idpago = null;
 		String pagadorEmail = Configuration.USER;
 		System.out.println("Generando pago para test");
 		automator.click(cerrarButtonModalLocator);
@@ -158,10 +177,10 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 				idpago = automator.getText(idPagoLocator);
 				return idpago;
 			} else {
-				System.out.println("Problemas en generar el pago 1");
+				System.out.println("Problemas en generar la orden de pago");
 				return idpago;
 			}
-			
+
 		} else {
 			System.out.println("Datos a confirmar del pago no coinciden");
 			return idpago;
