@@ -46,4 +46,9 @@ public class SeleniumUtils {
 		}
 		return secondWindowTab;
 	}
+	
+	public static void SwitchWindowTab(String secondWindowTab, WebDriver driver){
+		System.out.println("cambiando de tab");
+		driver.switchTo().window(secondWindowTab);
+	}
 }

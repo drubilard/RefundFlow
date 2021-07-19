@@ -11,7 +11,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Configuration {
-	public static final String APP_URL = "https://pst.flow.tuxidev.cl/";
+	public static final String APP_URL = "https://pst.flow.tuxidev.cl/"; //url de aplicacion de flow
+	public static final String CORREO_URL = "https://correotemporal.org/"; //url de correo
+	public static final String PASSWORD_CORREO = "1234aa";
 	public static String DRIVER_DIR = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 			+ File.separator + "resources" + File.separator + "drivers" + File.separator; // ruta del recurso para
 																							// setear la property (como

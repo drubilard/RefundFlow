@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -63,6 +64,7 @@ public class WebAutomator {
 	public void type(WebElement element, String text) {
 		element.sendKeys(text);
 	}
+	
 	public boolean isDisplayed(WebElement element) {
 		try {
 			return element.isDisplayed();
@@ -98,6 +100,10 @@ public class WebAutomator {
 
 	public WebElement find(By locator) {
 		return driver.findElement(locator);
+	}
+	
+	public WebElement find(WebElement element, By locator) {
+		return element.findElement(locator);
 	}
 
 	public WebElement find(By locator, Integer timeout) {
@@ -215,15 +221,32 @@ public class WebAutomator {
 		action.moveToElement(element).click().perform();
 	}
 	
+	public void copiarPortapapeles(WebElement element) {
+		action.keyDown(element,Keys.CONTROL).sendKeys(element,"c").keyUp(element,Keys.CONTROL).build().perform();
+	}
+	
+	public void pegarPortapapeles(WebElement element) {
+		action.keyDown(element,Keys.CONTROL).sendKeys(element,"v").keyUp(element,Keys.CONTROL).build().perform();
+	}
+	
 	//IFRAME
 	public void switchToIframe (WebElement element) {
 		driver.switchTo().frame(element);
+	}
+	
+	public void switchTodefaultContent () {
+		driver.switchTo().defaultContent();
 	}
 	
 	//JS
 	public void clickJs(WebElement element) {
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 	}
+	
+	public void openNewTabJS() {
+		((JavascriptExecutor)driver).executeScript("window.open()");
+	}
+
 	
 }
 
