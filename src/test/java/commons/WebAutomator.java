@@ -20,13 +20,14 @@ public class WebAutomator {
 	private WebDriverWait ewait;
 	private Actions action;
 	private JavascriptExecutor jse;
+
 	private void setDriver(WebDriver normalDriver) {
 		EventFiringWebDriver edriver = new EventFiringWebDriver(normalDriver);
 		edriver.register(new EventListener());
 		driver = edriver;
 		ewait = new WebDriverWait(normalDriver, 30);
 		action = new Actions(normalDriver);
-		 jse = (JavascriptExecutor) normalDriver;
+		jse = (JavascriptExecutor) normalDriver;
 
 	}
 
@@ -48,12 +49,13 @@ public class WebAutomator {
 
 		return normalDriver;
 	}
-	
+
 	public WebAutomator(Browser browser) throws Exception {
 		WebDriver normalDriver = createLocalDriver(browser);
 		this.setDriver(normalDriver);
-		
+
 	}
+
 	private static String modifyIfWindows(String inPath) {
 		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
 			return inPath + ".exe";
@@ -61,15 +63,15 @@ public class WebAutomator {
 			return inPath;
 		}
 	}
+
 	public void type(WebElement element, String text) {
 		element.sendKeys(text);
 	}
-	
+
 	public boolean isDisplayed(WebElement element) {
 		try {
 			return element.isDisplayed();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
@@ -101,7 +103,7 @@ public class WebAutomator {
 	public WebElement find(By locator) {
 		return driver.findElement(locator);
 	}
-	
+
 	public WebElement find(WebElement element, By locator) {
 		return element.findElement(locator);
 	}
@@ -133,7 +135,6 @@ public class WebAutomator {
 		waitUntilClickable(element, timeout);
 		element.click();
 	}
-	
 
 	public void clickThroughJavaScript(WebElement element) {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
@@ -160,16 +161,16 @@ public class WebAutomator {
 	}
 
 	public WebElement waitUntilPresent(WebElement element, int timeout) {
-		
-		try {
-			return new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOf(element));
 
-		}
-		catch(org.openqa.selenium.StaleElementReferenceException ex)
-		{
-			return new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOf(element));
+		return new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOf(element));
 
-		}
+	}
+	
+	
+	public Boolean waitUntilValuePresent(WebElement element, int timeout, String text) {
+
+		return new WebDriverWait(driver, timeout).until(ExpectedConditions.textToBePresentInElement(element, text));
+
 	}
 
 	public WebElement waitUntilClickable(By locator, int timeout) {
@@ -180,19 +181,17 @@ public class WebAutomator {
 		try {
 			return new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(element));
 
-		}
-		catch(org.openqa.selenium.StaleElementReferenceException ex)
-		{
+		} catch (org.openqa.selenium.StaleElementReferenceException ex) {
 			return new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(element));
 
-		}	}
+		}
+	}
 
 	public WebDriverWait waitForAlert(int timeout) {
 		WebDriverWait wait = new WebDriverWait(driver, timeout);
 		wait.until(ExpectedConditions.alertIsPresent());
 		return wait;
 	}
-	
 
 	public void submit(WebElement element) {
 		element.submit();
@@ -201,52 +200,52 @@ public class WebAutomator {
 	public void submit(By locator) {
 		find(locator).submit();
 	}
+
 	public String url() {
 		return driver.getCurrentUrl();
 	}
-	
+
 	public Set<String> getWindowHandles() {
 		return driver.getWindowHandles();
 	}
+
 	public String getWindowHandle() {
 		return driver.getWindowHandle();
 	}
-	
+
 	public void switchTo(String tab) {
 		driver.switchTo().window(tab);
 	}
-	
-	//ACTION
+
+	// ACTION
 	public void movetoElementClick(WebElement element) {
 		action.moveToElement(element).click().perform();
 	}
-	
+
 	public void copiarPortapapeles(WebElement element) {
-		action.keyDown(element,Keys.CONTROL).sendKeys(element,"c").keyUp(element,Keys.CONTROL).build().perform();
+		action.keyDown(element, Keys.CONTROL).sendKeys(element, "c").keyUp(element, Keys.CONTROL).build().perform();
 	}
-	
+
 	public void pegarPortapapeles(WebElement element) {
-		action.keyDown(element,Keys.CONTROL).sendKeys(element,"v").keyUp(element,Keys.CONTROL).build().perform();
+		action.keyDown(element, Keys.CONTROL).sendKeys(element, "v").keyUp(element, Keys.CONTROL).build().perform();
 	}
-	
-	//IFRAME
-	public void switchToIframe (WebElement element) {
+
+	// IFRAME
+	public void switchToIframe(WebElement element) {
 		driver.switchTo().frame(element);
 	}
-	
-	public void switchTodefaultContent () {
+
+	public void switchTodefaultContent() {
 		driver.switchTo().defaultContent();
 	}
-	
-	//JS
+
+	// JS
 	public void clickJs(WebElement element) {
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
 	}
-	
+
 	public void openNewTabJS() {
-		((JavascriptExecutor)driver).executeScript("window.open()");
+		((JavascriptExecutor) driver).executeScript("window.open()");
 	}
 
-	
 }
-

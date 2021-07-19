@@ -94,7 +94,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	@FindBy(css = "#the-events >tr:first-child >td:first-child.asunto")
 	private WebElement correoOrderPagoLocator;
 
-	@FindBy(css = "	#the-events >tr:first-child >td.acciones > button.open-message")
+	@FindBy(css = "#the-events >tr:first-child >td.acciones > button.open-message")
 	private WebElement abrirOrderPagoLocator;
 	
 	@FindBy(partialLinkText = "Pagar")
@@ -194,13 +194,18 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 
 	// buscar pago disponible para reembolsar
 	public boolean buscarReembolso() throws InterruptedException {
+		int intentos =0;
 		pagosLocator = automator.findElements(By.cssSelector("#tablaPagos > tbody > tr"));
 		for (WebElement pagoLocator : pagosLocator) {
+			if(intentos >=5) {
+				return false;
+			}
 			try {
 				emailTemporal = automator.getText(automator.find(pagoLocator,By.cssSelector("td:nth-child(2)")));
 				//System.out.println("emailTemporal: "+emailTemporal);
 				automator.click(pagoLocator, 10);
 			} catch (Exception e) {
+				e.printStackTrace();
 				return false;
 			}
 			automator.click(continuarPagoLocator, 10);
@@ -210,6 +215,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 			} else {
 				automator.click(cerrarButtonModalLocator);
 			}
+			intentos++;
 		}
 		return false;
 	}
@@ -266,9 +272,10 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	}
 
 	public void aceptarPago(String idpago) {
+		String asuntoPago= "Aviso de transacción por pagar - Flow";
 		String secondTab = SeleniumUtils.IdentifySecondTab(automator.getWindowHandle(), automator.getDriver());
 		SeleniumUtils.SwitchWindowTab(secondTab, automator.getDriver());
-		automator.waitUntilPresent(correoOrderPagoLocator, 10);
+		automator.waitUntilValuePresent(correoOrderPagoLocator, 10,asuntoPago);
 		automator.click(abrirOrderPagoLocator, 10);
 		automator.waitUntilPresent(framePagarOrderPagoLocator, 10);
 		automator.switchToIframe(framePagarOrderPagoLocator);
@@ -278,7 +285,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	}
 	
 	public void aceptarReembolso() {
-		
+		String asuntoRefund= "Solicitud de reembolso - Flow";
 		String borrarDominioEmail =null;
 		borrarDominioEmail = emailTemporal.substring(0,emailTemporal.indexOf("@"));
 		System.out.println("borrarDominioEmail: "+borrarDominioEmail);
@@ -289,7 +296,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 		automator.type(inputRecuperarEmailLocator, borrarDominioEmail);
 		automator.type(inputRecuperarPassLocator, Configuration.PASSWORD_CORREO);
 		automator.click(buttonRecuperarEmailLocator, 10);
-		automator.waitUntilPresent(correoOrderPagoLocator, 10);
+		automator.waitUntilValuePresent(correoOrderPagoLocator, 10,asuntoRefund);
 		automator.click(abrirOrderPagoLocator, 10);
 		automator.waitUntilPresent(framePagarOrderPagoLocator, 10);
 		automator.switchToIframe(framePagarOrderPagoLocator);
