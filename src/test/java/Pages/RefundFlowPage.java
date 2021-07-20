@@ -9,16 +9,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
-import org.openqa.selenium.support.ui.Select;
 
 import commons.Browser;
 import commons.Configuration;
 import commons.SeleniumUtils;
 import commons.WebAutomator;
-import net.sourceforge.htmlunit.corejs.javascript.regexp.SubString;
 
 public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	private WebAutomator automator;
+	private PasarelaPagosFlow PasarelaPagos;
 	// declaracion localizadores
 	@FindBy(css = "li[class='visible-lg']+li :first-child")
 	private WebElement ingresarButtonLocator;
@@ -132,7 +131,10 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	
 	@FindBy(css = "	#recover_email_modal_action_btn.btn")	
 	private WebElement buttonRecuperarEmailLocator;	
-
+	
+	@FindBy(css = "a[data-id='2']")	
+	private WebElement buttonServipagPasarelaLocator;	
+	
 	@FindBy(partialLinkText = "Cerrar sesión")	
 	private WebElement logoutLocator;
 
@@ -144,6 +146,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	public RefundFlowPage(Browser browser) throws Exception {
 		automator = new WebAutomator(browser);
 		PageFactory.initElements(automator.getDriver(), this);
+		PasarelaPagos = new PasarelaPagosFlow(automator);
 
 	}
 
@@ -184,7 +187,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 			} else {
 				System.out.println("Pagos ya reembolsados");
 				idpago = crearPago();
-				aceptarPago(idpago);
+				aceptarPago();
 
 			}
 
@@ -271,7 +274,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 
 	}
 
-	public void aceptarPago(String idpago) {
+	public void aceptarPago() {
 		String asuntoPago= "Aviso de transacción por pagar - Flow";
 		String secondTab = SeleniumUtils.IdentifySecondTab(automator.getWindowHandle(), automator.getDriver());
 		SeleniumUtils.SwitchWindowTab(secondTab, automator.getDriver());
@@ -281,6 +284,14 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 		automator.switchToIframe(framePagarOrderPagoLocator);
 		automator.click(buttonPagarOrderPagoLocator, 10);
 		automator.switchTodefaultContent();
+		secondTab = SeleniumUtils.IdentifySecondTab(automator.getWindowHandle(), automator.getDriver());
+		SeleniumUtils.SwitchWindowTab(secondTab, automator.getDriver());
+		automator.waitUntilClickable(buttonServipagPasarelaLocator, 10);
+		if(PasarelaPagos.pagoTransaccionFlow(buttonServipagPasarelaLocator)) {
+			System.out.println("Pago realizado con éxito");
+		} else{
+			System.out.println("Problemas al genera pago");
+		}
 		
 	}
 	
@@ -302,6 +313,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 		automator.switchToIframe(framePagarOrderPagoLocator);
 		automator.click(buttonContinuarReembolsoLocator, 10);
 		automator.switchTodefaultContent();
+		SeleniumUtils.IdentifySecondTab(secondTab, automator.getDriver());
 		
 	}
 
