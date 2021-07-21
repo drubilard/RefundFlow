@@ -35,9 +35,9 @@ public class SeleniumUtils {
 
 		FileUtils.copyFile(file2, new File(path));
 	}
-	
-	public static String IdentifySecondTab(String actualityTab, WebDriver driver){
-		String secondWindowTab="";
+
+	public static String IdentifySecondTab(String actualityTab, WebDriver driver) {
+		String secondWindowTab = "";
 		for (String windowHandler : driver.getWindowHandles()) {
 			if (!windowHandler.equals(actualityTab)) {
 				secondWindowTab = windowHandler;
@@ -46,9 +46,16 @@ public class SeleniumUtils {
 		}
 		return secondWindowTab;
 	}
-	
-	public static void SwitchWindowTab(String secondWindowTab, WebDriver driver){
+
+	public static void SwitchWindowTab(String secondWindowTab, WebDriver driver) {
 		System.out.println("cambiando de tab");
 		driver.switchTo().window(secondWindowTab);
+	}
+
+	public static void SwitchAndCloseWindowTab(String tab, WebDriver driver) throws InterruptedException {
+		System.out.println("cambiando de tab");
+		driver.close();
+		Thread.sleep(500);
+		SwitchWindowTab(tab, driver);
 	}
 }

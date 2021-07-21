@@ -27,7 +27,7 @@ public class PasarelaPagosFlow extends LoadableComponent<PasarelaPagosFlow> {
 		PageFactory.initElements(automator.getDriver(), this);
 	}
 
-	public boolean pagoTransaccionFlow(WebElement elementMedio) {
+	public boolean pagoTransaccionServipag(WebElement elementMedio) {
 		automator.click(elementMedio, 10);
 		automator.click(buttonPagarFlowLocator, 10);
 		automator.click(buttonPagarServipagLocator, 10);
