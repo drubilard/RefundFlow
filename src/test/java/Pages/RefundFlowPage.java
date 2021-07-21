@@ -144,6 +144,9 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 
 	@FindBy(css = "a[data-id='2']")
 	private WebElement buttonServipagPasarelaLocator;
+	
+	@FindBy(css = "a[data-id='3']")
+	private WebElement buttonMultiCajaPasarelaLocator;
 
 	@FindBy(partialLinkText = "Cerrar sesión")
 	private WebElement logoutLocator;
@@ -299,8 +302,8 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 		automator.switchTodefaultContent();
 		idTabPagoFlow = SeleniumUtils.IdentifySecondTab(idTabEmailTemp, automator.getDriver());
 		SeleniumUtils.SwitchWindowTab(idTabPagoFlow, automator.getDriver());
-		automator.waitUntilClickable(buttonServipagPasarelaLocator, 10);
-		if (PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator)) {
+		automator.waitUntilClickable(buttonMultiCajaPasarelaLocator, 10);
+		if (PasarelaPagos.pagoTransaccionMultiCaja(buttonMultiCajaPasarelaLocator)) {
 			System.out.println("Pago realizado con éxito");
 		} else {
 			System.out.println("Problemas al genera pago");
