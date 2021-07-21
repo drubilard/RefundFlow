@@ -40,7 +40,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 
 	@FindBy(css = "body > div.page-container > div.yamm.navbar.navbar-static-top > div > div > ul > li:nth-child(3) > a")
 	private WebElement postCobrarButtonLocator;
-	
+
 	@FindBy(css = "#navbar-collapse-2 > ul > li.dropdown.open > ul > li > div > div > ul:nth-child(2) > li > a")
 	private WebElement reembolsarButtonLocator;
 
@@ -313,7 +313,6 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 		String borrarDominioEmail = null;
 		borrarDominioEmail = emailTemporal.substring(0, emailTemporal.indexOf("@"));
 		System.out.println("borrarDominioEmail: " + borrarDominioEmail);
-		idTabFlow = automator.getWindowHandle();
 		SeleniumUtils.SwitchWindowTab(idTabEmailTemp, automator.getDriver());
 		automator.click(recuperarEmailLocator, 10);
 		automator.waitUntilPresent(buttonRecuperarEmailLocator, 10);
@@ -326,8 +325,8 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 		automator.switchToIframe(framePagarOrderPagoLocator);
 		automator.click(buttonContinuarReembolsoLocator, 10);
 		automator.switchTodefaultContent();
-		idTabRefundFlow = automator.getWindowHandle();
-		SeleniumUtils.IdentifySecondTab(idTabRefundFlow, automator.getDriver());
+		idTabRefundFlow = SeleniumUtils.IdentifySecondTab(idTabEmailTemp, automator.getDriver());
+		SeleniumUtils.SwitchWindowTab(idTabRefundFlow, automator.getDriver());
 
 	}
 

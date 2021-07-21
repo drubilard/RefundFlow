@@ -1,7 +1,5 @@
 package Pages;
 
-import org.openqa.selenium.By;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,10 +13,10 @@ public class PasarelaPagosFlow extends LoadableComponent<PasarelaPagosFlow> {
 	// WebElement parrafoPagoLocator;
 	@FindBy(id = "pagar")
 	private WebElement buttonPagarFlowLocator;
-	
+
 	@FindBy(css = "input[value='Pagar']")
 	private WebElement buttonPagarServipagLocator;
-	
+
 	@FindBy(css = "div.col-md-6.col-md-offset-3.box-pay > h3")
 	private WebElement parrafoPagoLocator;
 
