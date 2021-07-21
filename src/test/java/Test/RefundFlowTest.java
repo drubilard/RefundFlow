@@ -2,6 +2,8 @@ package Test;
 
 
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -16,7 +18,7 @@ class RefundFlowTest extends BaseTest {
 	@Order(1)
 	@DisplayName("Login web de flow")
 	void login() {
-		page.login();
+		assertTrue(page.login());
 	}
 
 	@Test
@@ -26,8 +28,7 @@ class RefundFlowTest extends BaseTest {
 	void generarSolicitudRefund() throws InterruptedException {
 		page.crearPago();
 		page.mantenedorReembolso();
-		page.crearReembolso();
-		// assertTrue(page.menuInicioDisplayed());
+		assertTrue(page.crearReembolso());
 	}
 
 	@Test
