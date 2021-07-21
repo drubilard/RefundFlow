@@ -36,5 +36,6 @@ class RefundFlowTest extends BaseTest {
 	@Disabled
 	void generarPago() throws InterruptedException {
 		page.crearPago();
+		
 	}
 }
