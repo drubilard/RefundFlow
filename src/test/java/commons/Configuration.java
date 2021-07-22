@@ -11,14 +11,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Configuration {
-	public static final String APP_URL = "https://pst.flow.tuxidev.cl/"; //url de aplicacion de flow
-	public static final String CORREO_URL = "https://correotemporal.org/"; //url de correo
+	public static final String APP_URL = "https://pst.flow.tuxidev.cl/"; // url de aplicacion de flow
+	public static final String CORREO_URL = "https://correotemporal.org/"; // url de correo
 	public static final String PASSWORD_CORREO = "1234aa";
 	public static String DRIVER_DIR = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 			+ File.separator + "resources" + File.separator + "drivers" + File.separator; // ruta del recurso para
 																							// setear la property (como
 																							// cuando se busca el driver
 																							// de chrome)
+	public static String mediopagoDefault ="servipag";
 
 	public static final String CHROME_DRIVER = DRIVER_DIR + "chromedriver"; // seteo de ruta para chrome driver
 	public static final String GECKO_DRIVER = DRIVER_DIR + "geckodriver"; // setei de ruta para firefox driver
@@ -70,7 +71,7 @@ public class Configuration {
 		for (String windowHandler : driver.getWindowHandles()) {
 			if (!windowHandler.equals(actualityTab)) {
 				secondWindowTab = windowHandler;
-				//System.out.println("secondwindow:" + secondWindowTab);
+				// System.out.println("secondwindow:" + secondWindowTab);
 			}
 		}
 		return secondWindowTab;

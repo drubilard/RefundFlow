@@ -1,5 +1,6 @@
 package Pages;
 
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -7,8 +8,9 @@ import org.openqa.selenium.support.ui.LoadableComponent;
 
 import commons.WebAutomator;
 
-public class PasarelaPagosFlow extends LoadableComponent<PasarelaPagosFlow> {
+public class PasarelaPagosFlowPage extends LoadableComponent<PasarelaPagosFlowPage> {
 	WebAutomator automator;
+	
 	// WebElement buttonPagarFlowLocator;
 	// WebElement parrafoPagoLocator;
 	@FindBy(id = "pagar")
@@ -25,9 +27,10 @@ public class PasarelaPagosFlow extends LoadableComponent<PasarelaPagosFlow> {
 	private WebElement buttonPagarMultiCajaLocator;
 
 	
-	public PasarelaPagosFlow(WebAutomator automator) {
+	public PasarelaPagosFlowPage(WebAutomator automator) {
 		this.automator = automator;
 		PageFactory.initElements(automator.getDriver(), this);
+
 	}
 
 	public boolean pagoTransaccionServipag(WebElement elementMedio) {
