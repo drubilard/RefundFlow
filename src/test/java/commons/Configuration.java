@@ -25,9 +25,12 @@ public class Configuration {
 	public static final String GECKO_DRIVER = DRIVER_DIR + "geckodriver"; // setei de ruta para firefox driver
 	public static final String USER = "drubilar@tuxpan.com";
 	public static final String PASSWORD = "123456aa";
-	public static final String ORGANIZACION = "89862200-2";
-	public static final String LOCALANULACION = "29724172";
-	public static final String FECHAANULACION = "25/11/2020";
+	public static final String CREDITCARD_NUM = "4051 8856 0044 6623";
+	public static final String CREDITCARD_EXP = "1223";
+	public static final String CREDITCARD_CVV = "123";
+	public static final String RUT_TRANSBANK = "11111111-1";
+	public static final String CLAVE_TRANSBANK = "123";
+
 
 	public static final Logger LOGGER = (Logger) LogManager.getLogger("CSE");
 

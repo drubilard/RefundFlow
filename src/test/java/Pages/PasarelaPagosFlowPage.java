@@ -5,7 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
-
+import org.openqa.selenium.support.ui.Select;
+import commons.Configuration;
 import commons.WebAutomator;
 
 public class PasarelaPagosFlowPage extends LoadableComponent<PasarelaPagosFlowPage> {
@@ -37,7 +38,7 @@ public class PasarelaPagosFlowPage extends LoadableComponent<PasarelaPagosFlowPa
 	@FindBy(id = "card-cvv")
 	private WebElement inputCardCvvWebpayLocator;
 	
-	@FindBy(css = "button.next")
+	@FindBy(css = "button.submit")
 	private WebElement buttonWebpayContinuarLocator;
 	
 	@FindBy(id = "rutClient")
@@ -109,8 +110,22 @@ public class PasarelaPagosFlowPage extends LoadableComponent<PasarelaPagosFlowPa
 	public boolean pagoTransaccionWebpay1(WebElement elementMedio) {
 		automator.click(elementMedio, 10);
 		automator.click(buttonPagarFlowLocator, 10);
-		automator.click(buttonPagarMultiCajaLocator, 10);
-		automator.waitUntilPresent(parrafoPagoLocator, 10);
+		automator.click(buttonCreditoWebpayLocator, 10);
+		automator.waitUntilPresent(inputCardCvvWebpayLocator, 10);
+		automator.type(inputCardNumberWebpayLocator, Configuration.CREDITCARD_NUM);
+		automator.type(inputCardExpWebpayLocator, Configuration.CREDITCARD_EXP);
+		automator.type(inputCardCvvWebpayLocator, Configuration.CREDITCARD_CVV);
+		automator.waitUntilClickable(buttonWebpayContinuarLocator, 10);
+		automator.click(buttonWebpayContinuarLocator);
+		automator.waitUntilClickable(buttonAceptarTransbankLocator, 10);
+		automator.type(inputRutTransbankLocator, Configuration.RUT_TRANSBANK);
+		automator.type(inputPassTransbankLocator, Configuration.CLAVE_TRANSBANK);
+		automator.click(buttonAceptarTransbankLocator);
+		automator.waitUntilClickable(selectOptionTransbankLocator, 10);
+		Select selectOSelect = new Select(selectOptionTransbankLocator);
+		selectOSelect.selectByValue("TSY");
+		automator.click(buttonContinuarTransbankLocator, 10);
+		automator.waitUntilPresent(parrafoPagoLocator, 30);
 		if (automator.isDisplayed(parrafoPagoLocator)) {
 			return true;
 		} else {

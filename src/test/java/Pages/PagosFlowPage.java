@@ -112,6 +112,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 		mediosDePago.put(1, "servipag");
 		mediosDePago.put(2, "multicaja");
 		mediosDePago.put(3, "mach");
+		mediosDePago.put(4, "webpay1");
 
 	}
 
@@ -183,7 +184,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 	}
 
 	public boolean aceptarPago(String medioPago) {
-		String asuntoPago = "Aviso de transacciï¿½n por pagar - Flow";
+		String asuntoPago = "Aviso de transacción por pagar - Flow";
 		SeleniumUtils.SwitchWindowTab(idTabEmailTemp, automator.getDriver());
 		automator.waitUntilValuePresent(correoOrderPagoLocator, 10, asuntoPago);
 		automator.click(abrirOrderPagoLocator, 10);
@@ -206,7 +207,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			return PasarelaPagos.pagoTransaccionMach(buttonMachPasarelaLocator);
 
 		case "webpay1":
-			return PasarelaPagos.pagoTransaccionMultiCaja(buttonWebpay1PasarelaLocator);
+			return PasarelaPagos.pagoTransaccionWebpay1(buttonWebpay1PasarelaLocator);
 
 		default:
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);

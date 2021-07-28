@@ -24,7 +24,7 @@ class RefundFlowTest extends BaseTest {
 	 * 4	  Webpay_1
 	 */
 	
-	int medioPago = 1;
+	int medioPago = 4;
 	@Test
 	@Order(1)
 	@DisplayName("Login web de flow")
@@ -35,7 +35,7 @@ class RefundFlowTest extends BaseTest {
 	@Test
 	@Order(2)
 	@DisplayName("Generacion solicitud de reembolso")
-	//@Disabled
+	@Disabled
 	void generarSolicitudRefund() throws InterruptedException {
 		String idTabEmailTemp =pagePagos.crearPago(mediosDePago.get(medioPago));
 		assertNotEquals(null, idTabEmailTemp);
@@ -46,7 +46,7 @@ class RefundFlowTest extends BaseTest {
 	@Test
 	@Order(4)
 	@DisplayName("Generacion de solicitud y proceso de pago")
-	@Disabled
+	//@Disabled
 	void generarPago() throws InterruptedException {
 			pagePagos.crearPago(mediosDePago.get(medioPago));
 
