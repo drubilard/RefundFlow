@@ -20,6 +20,7 @@ class RefundFlowTest extends BaseTest {
 	 * id     medio 
 	 * 1      Servipag  
 	 * 2      Multicaja 
+	 * 3      Mach 
 	 * 4	  Webpay_1
 	 */
 	

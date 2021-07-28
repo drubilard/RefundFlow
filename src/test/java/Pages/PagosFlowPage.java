@@ -142,7 +142,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			emailTemporal = automator.getText(pagadorLocator);
 			automator.click(confirmaPagoLocator);
 			if (automator.isDisplayed(confirmacionPagoLocator)) {
-				System.out.println("Pago generado con éxito");
+				System.out.println("Pago generado con ï¿½xito");
 				idpago = automator.getText(idPagoLocator);
 				if (aceptarPago(medioPago)) {
 					return idTabEmailTemp;
@@ -183,7 +183,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 	}
 
 	public boolean aceptarPago(String medioPago) {
-		String asuntoPago = "Aviso de transacción por pagar - Flow";
+		String asuntoPago = "Aviso de transacciï¿½n por pagar - Flow";
 		SeleniumUtils.SwitchWindowTab(idTabEmailTemp, automator.getDriver());
 		automator.waitUntilValuePresent(correoOrderPagoLocator, 10, asuntoPago);
 		automator.click(abrirOrderPagoLocator, 10);
@@ -201,13 +201,13 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);
 		case "multicaja":
 			return PasarelaPagos.pagoTransaccionMultiCaja(buttonMultiCajaPasarelaLocator);
-<<<<<<< HEAD
+
 		case "mach":
 			return PasarelaPagos.pagoTransaccionMach(buttonMachPasarelaLocator);
-=======
+
 		case "webpay1":
 			return PasarelaPagos.pagoTransaccionMultiCaja(buttonWebpay1PasarelaLocator);
->>>>>>> c50fad7894c63330366de9824982a89ad3c466ba
+
 		default:
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);
 		}
