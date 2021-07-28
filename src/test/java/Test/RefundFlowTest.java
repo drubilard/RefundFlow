@@ -17,7 +17,7 @@ class RefundFlowTest extends BaseTest {
 	Map<Integer, String> mediosDePago = pagePagos.getMediosDePago();
 	
 	/* Setear variable medioPago con el id del medio qeu se quiere utilizar para realizar pagos:
-	 * id     medio
+	 * id     medio 
 	 * 1      Servipag  
 	 * 2      Multicaja 
 	 * 4	  Webpay1 
