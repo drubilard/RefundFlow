@@ -84,6 +84,9 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 
 	@FindBy(css = "a[data-id='3']")
 	private WebElement buttonMultiCajaPasarelaLocator;
+	
+	@FindBy(css = "a[data-id='1']")
+	private WebElement buttonWebpay1PasarelaLocator;
 
 	
 	
@@ -197,6 +200,8 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);
 		case "multicaja":
 			return PasarelaPagos.pagoTransaccionMultiCaja(buttonMultiCajaPasarelaLocator);
+		case "webpay1":
+			return PasarelaPagos.pagoTransaccionMultiCaja(buttonWebpay1PasarelaLocator);
 		default:
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);
 		}
