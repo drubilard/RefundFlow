@@ -18,7 +18,7 @@ class RefundFlowTest extends BaseTest {
 	
 	/* Setear variable medioPago con el id del medio qeu se quiere utilizar para realizar pagos:
 	 * id     medio
-	 * 1      Servipag
+	 * 1      Servipag  
 	 * 2      Multicaja
 	 * 4	  Webpay1 
 	 */
