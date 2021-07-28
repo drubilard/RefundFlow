@@ -58,6 +58,18 @@ public class PasarelaPagosFlowPage extends LoadableComponent<PasarelaPagosFlowPa
 		}
 
 	}
+	
+	public boolean pagoTransaccionMach(WebElement elementMedio) {
+		automator.click(elementMedio, 10);
+		automator.click(buttonPagarFlowLocator, 10);
+		automator.waitUntilPresent(parrafoPagoLocator, 10);
+		if (automator.isDisplayed(parrafoPagoLocator)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
 
 	@Override
 	protected void load() {

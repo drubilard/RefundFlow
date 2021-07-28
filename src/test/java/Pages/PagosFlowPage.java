@@ -85,7 +85,8 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 	@FindBy(css = "a[data-id='3']")
 	private WebElement buttonMultiCajaPasarelaLocator;
 
-	
+	@FindBy(css = "a[data-id='15']")
+	private WebElement buttonMachPasarelaLocator;
 	
 	// variables de entorno
 	String idpago = null;
@@ -107,6 +108,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 		PasarelaPagos = new PasarelaPagosFlowPage(automator);
 		mediosDePago.put(1, "servipag");
 		mediosDePago.put(2, "multicaja");
+		mediosDePago.put(3, "mach");
 
 	}
 
@@ -188,7 +190,6 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 		automator.switchTodefaultContent();
 		idTabPagoFlow = SeleniumUtils.IdentifySecondTab(idTabEmailTemp, automator.getDriver());
 		SeleniumUtils.SwitchWindowTab(idTabPagoFlow, automator.getDriver());
-		automator.waitUntilClickable(buttonMultiCajaPasarelaLocator, 10);
 		if(medioPago == null) {
 			medioPago = Configuration.mediopagoDefault;
 		}
@@ -197,6 +198,8 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);
 		case "multicaja":
 			return PasarelaPagos.pagoTransaccionMultiCaja(buttonMultiCajaPasarelaLocator);
+		case "mach":
+			return PasarelaPagos.pagoTransaccionMach(buttonMachPasarelaLocator);
 		default:
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);
 		}
