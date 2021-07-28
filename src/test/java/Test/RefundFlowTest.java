@@ -33,7 +33,7 @@ class RefundFlowTest extends BaseTest {
 
 	@Test
 	@Order(2)
-	@DisplayName("Generación solicitud de reembolso")
+	@DisplayName("Generacion solicitud de reembolso")
 	//@Disabled
 	void generarSolicitudRefund() throws InterruptedException {
 		String idTabEmailTemp =pagePagos.crearPago(mediosDePago.get(medioPago));
@@ -44,7 +44,7 @@ class RefundFlowTest extends BaseTest {
 
 	@Test
 	@Order(4)
-	@DisplayName("Generación de solicitud y proceso de pago")
+	@DisplayName("Generacion de solicitud y proceso de pago")
 	@Disabled
 	void generarPago() throws InterruptedException {
 			pagePagos.crearPago(mediosDePago.get(medioPago));
