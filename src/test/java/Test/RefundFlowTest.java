@@ -19,10 +19,11 @@ class RefundFlowTest extends BaseTest {
 	/* Setear variable medioPago con el id del medio qeu se quiere utilizar para realizar pagos:
 	 * id     medio
 	 * 1      Servipag
-	 * 2      multicaja
+	 * 2      Multicaja
+	 * 4	  Webpay1
 	 */
 	
-	int medioPago = 2;
+	int medioPago = 1;
 	@Test
 	@Order(1)
 	@DisplayName("Login web de flow")
@@ -33,7 +34,7 @@ class RefundFlowTest extends BaseTest {
 	@Test
 	@Order(2)
 	@DisplayName("Generación solicitud de reembolso")
-	// @Disabled
+	//@Disabled
 	void generarSolicitudRefund() throws InterruptedException {
 		String idTabEmailTemp =pagePagos.crearPago(mediosDePago.get(medioPago));
 		assertNotEquals(null, idTabEmailTemp);
@@ -45,9 +46,8 @@ class RefundFlowTest extends BaseTest {
 	@Order(4)
 	@DisplayName("Generación de solicitud y proceso de pago")
 	@Disabled
-	void generarPago() throws InterruptedException {	
+	void generarPago() throws InterruptedException {
 			pagePagos.crearPago(mediosDePago.get(medioPago));
-
 
 	}
 }
