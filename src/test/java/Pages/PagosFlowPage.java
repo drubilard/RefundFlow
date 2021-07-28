@@ -16,7 +16,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 
 	// declaracion localizadores
 
-	@FindBy(css = "#navbar-collapse-2 > ul > li:nth-child(3) > a")
+	@FindBy(css = "#navbar-collapse-2 > ul > li:nth-child(3) > a") 
 	private WebElement cobrarButtonLocator;
 
 	@FindBy(css = "#navbar-collapse-2 > ul > li.dropdown.open > ul > li > div > div > ul:nth-child(1) > li:nth-child(1) > a")
