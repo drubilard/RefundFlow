@@ -75,7 +75,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	@FindBy(css = "#mensaje_modal > div > div > div.modal-header > button > span")
 	private WebElement cerrarMailLocator;
 
-	@FindBy(partialLinkText = "Cerrar sesión")
+	@FindBy(partialLinkText = "Cerrar sesiÃ³n")
 	private WebElement logoutLocator;
 
 	
@@ -95,7 +95,6 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	public RefundFlowPage(Browser browser) throws Exception {
 		automator = new WebAutomator(browser);
 		PageFactory.initElements(automator.getDriver(), this);
-
 	}
 
 	public WebAutomator getAutomator() {

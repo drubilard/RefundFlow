@@ -1,6 +1,5 @@
 package Pages;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 
 	// declaracion localizadores
 
-	@FindBy(css = "#navbar-collapse-2 > ul > li:nth-child(3) > a") 
+	@FindBy(css = "#navbar-collapse-2 > ul > li:nth-child(3) > a")
 	private WebElement cobrarButtonLocator;
 
 	@FindBy(css = "#navbar-collapse-2 > ul > li.dropdown.open > ul > li > div > div > ul:nth-child(1) > li:nth-child(1) > a")
@@ -79,18 +78,26 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 	@FindBy(css = "#show_password_modal > div.modal-dialog.modal-lg > div > div.modal-header > button")
 	private WebElement buttonCerrarPassLocator;
 
+	// localizadores de medios de pagos
+
 	@FindBy(css = "a[data-id='2']")
 	private WebElement buttonServipagPasarelaLocator;
 
 	@FindBy(css = "a[data-id='3']")
 	private WebElement buttonMultiCajaPasarelaLocator;
-	
+
 	@FindBy(css = "a[data-id='1']")
-	private WebElement buttonWebpay1PasarelaLocator;
+	private WebElement buttonWebpayPasarelaLocator;
+
+	@FindBy(css = "a[data-id='28']")
+	private WebElement buttonWebpayMallPasarelaLocator;
 
 	@FindBy(css = "a[data-id='15']")
 	private WebElement buttonMachPasarelaLocator;
-	
+
+	@FindBy(css = "a[data-id='8']")
+	private WebElement buttonCryptoPasarelaLocator;
+
 	// variables de entorno
 	String idpago = null;
 	String emailTemporal = null;
@@ -101,9 +108,8 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 	String idTabEmailTemp = null;
 	String idTabPagoFlow = null;
 	public static final Map<Integer, String> mediosDePago = new HashMap<Integer, String>();
-	
-	
-	//constructor
+
+	// constructor
 
 	public PagosFlowPage(WebAutomator automator) throws Exception {
 		this.automator = automator;
@@ -113,6 +119,8 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 		mediosDePago.put(2, "multicaja");
 		mediosDePago.put(3, "mach");
 		mediosDePago.put(4, "webpay1");
+		mediosDePago.put(5, "webpayMall");
+		mediosDePago.put(6, "crypto");
 
 	}
 
@@ -123,8 +131,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 	public Map<Integer, String> getMediosDePago() {
 		return PagosFlowPage.mediosDePago;
 	}
-	
-	
+
 	// creacion de pago
 	public String crearPago(String medioPago) {
 		idTabFlow = automator.getWindowHandle();
@@ -143,7 +150,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			emailTemporal = automator.getText(pagadorLocator);
 			automator.click(confirmaPagoLocator);
 			if (automator.isDisplayed(confirmacionPagoLocator)) {
-				System.out.println("Pago generado con �xito");
+				System.out.println("Pago generado con éxito");
 				idpago = automator.getText(idPagoLocator);
 				if (aceptarPago(medioPago)) {
 					return idTabEmailTemp;
@@ -184,9 +191,9 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 	}
 
 	public boolean aceptarPago(String medioPago) {
-		String asuntoPago = "Aviso de transacci�n por pagar - Flow";
+		String asuntoPago = "Aviso de transacción por pagar - Flow";
 		SeleniumUtils.SwitchWindowTab(idTabEmailTemp, automator.getDriver());
-		automator.waitUntilValuePresent(correoOrderPagoLocator, 10, asuntoPago);
+		automator.waitUntilValuePresent(correoOrderPagoLocator, 20, asuntoPago);
 		automator.click(abrirOrderPagoLocator, 10);
 		automator.waitUntilPresent(framePagarOrderPagoLocator, 10);
 		automator.switchToIframe(framePagarOrderPagoLocator);
@@ -194,7 +201,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 		automator.switchTodefaultContent();
 		idTabPagoFlow = SeleniumUtils.IdentifySecondTab(idTabEmailTemp, automator.getDriver());
 		SeleniumUtils.SwitchWindowTab(idTabPagoFlow, automator.getDriver());
-		if(medioPago == null) {
+		if (medioPago == null) {
 			medioPago = Configuration.mediopagoDefault;
 		}
 		switch (medioPago) {
@@ -202,17 +209,19 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);
 		case "multicaja":
 			return PasarelaPagos.pagoTransaccionMultiCaja(buttonMultiCajaPasarelaLocator);
-
 		case "mach":
 			return PasarelaPagos.pagoTransaccionMach(buttonMachPasarelaLocator);
 
 		case "webpay1":
-			return PasarelaPagos.pagoTransaccionWebpay1(buttonWebpay1PasarelaLocator);
+			return PasarelaPagos.pagoTransaccionWebpay(buttonWebpayPasarelaLocator);
+		case "webpayMall":
+			return PasarelaPagos.pagoTransaccionWebpay(buttonWebpayMallPasarelaLocator);
+		case "crypto":
+			return PasarelaPagos.pagoTransaccionCrypto(buttonCryptoPasarelaLocator);
 
 		default:
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);
 		}
-		
 
 	}
 

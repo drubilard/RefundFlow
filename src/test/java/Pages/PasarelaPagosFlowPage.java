@@ -25,7 +25,9 @@ public class PasarelaPagosFlowPage extends LoadableComponent<PasarelaPagosFlowPa
 	@FindBy(css = "input[value='Continuar']")
 	private WebElement buttonPagarMultiCajaLocator;
 	
-	
+	@FindBy(css = "input[value='Pagar']")
+	private WebElement buttonPagarCryptoLocator;
+		
 	@FindBy(id = "credito")
 	private WebElement buttonCreditoWebpayLocator;
 	
@@ -107,7 +109,7 @@ public class PasarelaPagosFlowPage extends LoadableComponent<PasarelaPagosFlowPa
 
 	}
 
-	public boolean pagoTransaccionWebpay1(WebElement elementMedio) {
+	public boolean pagoTransaccionWebpay(WebElement elementMedio) {
 		automator.click(elementMedio, 10);
 		automator.click(buttonPagarFlowLocator, 10);
 		automator.click(buttonCreditoWebpayLocator, 10);
@@ -126,6 +128,19 @@ public class PasarelaPagosFlowPage extends LoadableComponent<PasarelaPagosFlowPa
 		selectOSelect.selectByValue("TSY");
 		automator.click(buttonContinuarTransbankLocator, 10);
 		automator.waitUntilPresent(parrafoPagoLocator, 30);
+		if (automator.isDisplayed(parrafoPagoLocator)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+	
+	public boolean pagoTransaccionCrypto(WebElement elementMedio) {
+		automator.click(elementMedio, 10);
+		automator.click(buttonPagarFlowLocator, 10);
+		automator.click(buttonPagarCryptoLocator, 10);
+		automator.waitUntilPresent(parrafoPagoLocator, 10);
 		if (automator.isDisplayed(parrafoPagoLocator)) {
 			return true;
 		} else {
