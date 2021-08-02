@@ -143,7 +143,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			emailTemporal = automator.getText(pagadorLocator);
 			automator.click(confirmaPagoLocator);
 			if (automator.isDisplayed(confirmacionPagoLocator)) {
-				System.out.println("Pago generado con �xito");
+				System.out.println("Pago generado con Éxito");
 				idpago = automator.getText(idPagoLocator);
 				if (aceptarPago(medioPago)) {
 					return idTabEmailTemp;
@@ -184,7 +184,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 	}
 
 	public boolean aceptarPago(String medioPago) {
-		String asuntoPago = "Aviso de transacci�n por pagar - Flow";
+		String asuntoPago = "Aviso de transacción por pagar - Flow";
 		SeleniumUtils.SwitchWindowTab(idTabEmailTemp, automator.getDriver());
 		automator.waitUntilValuePresent(correoOrderPagoLocator, 10, asuntoPago);
 		automator.click(abrirOrderPagoLocator, 10);

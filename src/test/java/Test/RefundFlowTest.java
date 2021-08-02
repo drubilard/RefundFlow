@@ -46,9 +46,18 @@ class RefundFlowTest extends BaseTest {
 	@Test
 	@Order(4)
 	@DisplayName("Generacion de solicitud y proceso de pago")
-	//@Disabled
+	@Disabled
 	void generarPago() throws InterruptedException {
 			pagePagos.crearPago(mediosDePago.get(medioPago));
+
+	}
+	
+	@Test
+	@Order(5)
+	@DisplayName("Generacion de botón de pago")
+	//@Disabled
+	void generarBotonPago() throws InterruptedException {
+		assertTrue(pageBotonPagos.crearBotonDePago());
 
 	}
 }
