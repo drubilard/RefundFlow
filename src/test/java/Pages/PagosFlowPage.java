@@ -207,7 +207,7 @@ public class PagosFlowPage extends LoadableComponent<PagosFlowPage> {
 			return PasarelaPagos.pagoTransaccionMach(buttonMachPasarelaLocator);
 
 		case "webpay1":
-			return PasarelaPagos.pagoTransaccionWebpay1(buttonWebpay1PasarelaLocator);
+			return PasarelaPagos.pagoTransaccionWebpay(buttonWebpay1PasarelaLocator);
 
 		default:
 			return PasarelaPagos.pagoTransaccionServipag(buttonServipagPasarelaLocator);

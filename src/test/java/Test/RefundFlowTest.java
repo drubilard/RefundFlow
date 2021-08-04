@@ -16,15 +16,17 @@ import org.junit.jupiter.api.TestMethodOrder;
 class RefundFlowTest extends BaseTest {
 	Map<Integer, String> mediosDePago = pagePagos.getMediosDePago();
 	
-	/* Setear variable medioPago con el id del medio qeu se quiere utilizar para realizar pagos:
+	/* Setear variable medioPago con el id del medio que se quiere utilizar para realizar pagos:
 	 * id     medio 
 	 * 1      Servipag  
 	 * 2      Multicaja 
 	 * 3      Mach 
-	 * 4	  Webpay_1
+	 * 4	  Webpay
+	 * 5	  Webpay Mall
+	 * 6	  CryptoMonedas
 	 */
 	
-	int medioPago = 4;
+	int medioPago = 6;
 	@Test
 	@Order(1)
 	@DisplayName("Login web de flow")
@@ -35,7 +37,7 @@ class RefundFlowTest extends BaseTest {
 	@Test
 	@Order(2)
 	@DisplayName("Generacion solicitud de reembolso")
-	@Disabled
+	//@Disabled
 	void generarSolicitudRefund() throws InterruptedException {
 		String idTabEmailTemp =pagePagos.crearPago(mediosDePago.get(medioPago));
 		assertNotEquals(null, idTabEmailTemp);
