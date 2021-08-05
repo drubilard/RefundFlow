@@ -75,7 +75,7 @@ public class RefundFlowPage extends LoadableComponent<RefundFlowPage> {
 	@FindBy(css = "#mensaje_modal > div > div > div.modal-header > button > span")
 	private WebElement cerrarMailLocator;
 
-	@FindBy(partialLinkText = "Cerrar sesi�n")
+	@FindBy(partialLinkText = "Cerrar sesión")
 	private WebElement logoutLocator;
 
 	

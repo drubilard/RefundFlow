@@ -99,6 +99,10 @@ public class WebAutomator {
 	public void closeAll() {
 		driver.quit();
 	}
+	
+	public WebElement getIndx(List<WebElement>  WebElements, int indice) {
+		return WebElements.get(indice);
+	}
 
 	public WebElement find(By locator) {
 		return driver.findElement(locator);

@@ -1,9 +1,6 @@
 package Pages;
 
-import java.util.Iterator;
 import java.util.List;
-
-import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,13 +38,14 @@ public class BotonDePagoPage extends LoadableComponent<BotonDePagoPage> {
 
 	@FindBy(id = "catalogo")
 	private WebElement listaCatalogo;
-
-	@FindBy(css = "ul#catalogo > :nth-child(1)")
-	private WebElement listaNombreBoton;
-
+	
+	@FindBy(id = "filtro")
+	private WebElement filtroBotonPagoLocator;
+	
+	@FindBy(xpath = "//ul[@id='catalogo'] /child::li")
 	private List<WebElement> botonesPagoLocator;
 
-	int valorRandom = (int) Math.floor(Math.random() * 6 + 1);
+	int valorRandom = (int) Math.floor(Math.random() * 1000 + 1);
 	String nombreBoton = "nombre producto automator " + valorRandom;
 
 	public BotonDePagoPage(WebAutomator automator) {
@@ -60,20 +58,18 @@ public class BotonDePagoPage extends LoadableComponent<BotonDePagoPage> {
 		return this.automator;
 	}
 
-	public boolean recorrerListaNombre(){
-		botonesPagoLocator = automator.findElements(By.cssSelector("ul#catalogo > li"));
-		for (WebElement pagoNombreLocator : botonesPagoLocator) {
-			
-			if (nombreBoton.equals(pagoNombreLocator.getAttribute("data-name"))) {
-				return true;
-			}
-			
- 		} 
+	public boolean recorrerListaNombre() throws InterruptedException {
+		automator.type(filtroBotonPagoLocator, nombreBoton);
+		Thread.sleep(1000);
+		if(botonesPagoLocator.size()>0) {
+			return true;
+		}
+
 		return false;
 
 	}
 
-	public boolean crearBotonDePago() {
+	public boolean crearBotonDePago() throws InterruptedException {
 		automator.click(botonDePagoMenu, 10);
 		automator.click(nuevoBotonPago, 10);
 		automator.waitUntilPresent(inputDescripcion, 10);
@@ -83,7 +79,7 @@ public class BotonDePagoPage extends LoadableComponent<BotonDePagoPage> {
 		automator.type(inputMontoProducto, "5000");
 		automator.click(botonGrabar, 10);
 		automator.click(botonMasTarde, 10);
-		automator.waitUntilPresent(listaCatalogo, 10);
+		automator.waitUntilPresent(filtroBotonPagoLocator, 10);
 		return recorrerListaNombre();
 	}
 
