@@ -1,7 +1,5 @@
 package Pages;
-
 import java.util.List;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -45,8 +43,8 @@ public class BotonDePagoPage extends LoadableComponent<BotonDePagoPage> {
 	@FindBy(xpath = "//ul[@id='catalogo'] /child::li")
 	private List<WebElement> botonesPagoLocator;
 
-	int valorRandom = (int) Math.floor(Math.random() * 1000 + 1);
-	String nombreBoton = "nombre producto automator " + valorRandom;
+	String valorRandom = String.format(System.currentTimeMillis() +" test");
+	String nombreBoton = "nuevo boton " + valorRandom;
 
 	public BotonDePagoPage(WebAutomator automator) {
 		this.automator = automator;
