@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class RefundFlowTest extends BaseTest {
+class FlowTest extends BaseTest {
 	Map<Integer, String> mediosDePago = pagePagos.getMediosDePago();
 	
 	/* Setear variable medioPago con el id del medio que se quiere utilizar para realizar pagos:
@@ -30,8 +30,9 @@ class RefundFlowTest extends BaseTest {
 	@Test
 	@Order(1)
 	@DisplayName("Login web de flow")
+	//@Disabled
 	void login() {
-		assertTrue(pageRefund.login());
+		assertTrue(pageFlow.login());
 	}
 
 	@Test
